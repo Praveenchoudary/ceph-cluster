@@ -179,8 +179,10 @@ Import successful!
 
 Imported aws_instance.my_ec2
 ```
+<img width="1195" height="213" alt="image" src="https://github.com/user-attachments/assets/28787b8e-71cd-4c45-98ee-17f8592a9d17" />
 
 Terraform now records the mapping between your Terraform resource and the existing EC2 instance.
+
 
 ---
 
