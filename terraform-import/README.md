@@ -193,6 +193,7 @@ List all resources managed by Terraform.
 ```bash
 terraform state list
 ```
+<img width="1243" height="91" alt="image" src="https://github.com/user-attachments/assets/c5210a51-8c83-48f8-a704-9fc84b39cd56" />
 
 Expected output:
 
@@ -276,6 +277,7 @@ If everything matches, Terraform should display:
 
 ```text
 No changes.
+<img width="1205" height="166" alt="image" src="https://github.com/user-attachments/assets/6782af72-ed17-4d41-a891-526b4371866f" />
 
 Your infrastructure matches the configuration.
 ```
