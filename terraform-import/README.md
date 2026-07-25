@@ -243,22 +243,21 @@ Example:
 
 ```hcl
 resource "aws_instance" "my_ec2" {
-
-  ami           = "ami-0f5ee92e2d63afc18"
-
-  instance_type = "t2.micro"
-
-  subnet_id = "subnet-0123456789abc"
-
-  vpc_security_group_ids = [
-    "sg-0123456789abcdef0"
-  ]
+  ami               = "ami-0b6d9d3d33ba97d99"
+  availability_zone = "us-east-1d"
+  instance_type     = "t3.micro"
+  key_name          = "praveeenuuuu"
 
   tags = {
-    Name = "terraform-import-demo"
+    "Name" = "test"
   }
 
+  vpc_security_group_ids = [
+    "sg-088a9d0a2acd87acb",
+  ]
+
 }
+
 ```
 
 Your Terraform configuration should match the actual EC2 configuration as closely as possible.
