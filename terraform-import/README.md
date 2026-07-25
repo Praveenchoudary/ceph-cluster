@@ -277,7 +277,9 @@ If everything matches, Terraform should display:
 
 ```text
 No changes.
-<img width="1205" height="166" alt="image" src="https://github.com/user-attachments/assets/6782af72-ed17-4d41-a891-526b4371866f" />
+
+<img width="1205" height="166" alt="image" src="https://github.com/user-attachments/assets/c97e3f03-58bd-450e-a40e-aea4b46ff31b" />
+
 
 Your infrastructure matches the configuration.
 ```
