@@ -278,11 +278,9 @@ If everything matches, Terraform should display:
 ```text
 No changes.
 
-<img width="1205" height="166" alt="image" src="https://github.com/user-attachments/assets/c97e3f03-58bd-450e-a40e-aea4b46ff31b" />
-
-
 Your infrastructure matches the configuration.
 ```
+<img width="1205" height="166" alt="image" src="https://github.com/user-attachments/assets/53eb9d8e-b2f4-4774-a82b-f3587628e14a" />
 
 This confirms Terraform is now managing the manually created EC2 instance successfully.
 
