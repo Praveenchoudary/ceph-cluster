@@ -1,4 +1,0 @@
-apiVersion: v2
-name: ui-service
-description: UI service Helm chart
-version: 0.1.0

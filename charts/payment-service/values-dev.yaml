@@ -1,7 +1,0 @@
-replicaCount: 1
-
-image:
-  tag: "5"
-
-env:
-  APP_ENV: "dev"

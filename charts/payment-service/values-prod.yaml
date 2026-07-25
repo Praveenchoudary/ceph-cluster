@@ -1,7 +1,0 @@
-replicaCount: 2
-
-image:
-  tag: "latest"
-
-env:
-  APP_ENV: "prod"

@@ -1,8 +1,0 @@
-replicaCount: 1
-
-image:
-  tag: "3"
-
-env:
-  PAYMENT_SERVICE_URL: "http://payment-service:8080"
-  APP_ENV: "dev"
