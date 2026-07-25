@@ -82,6 +82,7 @@ Recommended configuration:
 | Security Group | Allow SSH (22)        |
 
 After the instance is created, copy the **Instance ID**.
+<img width="1667" height="204" alt="image" src="https://github.com/user-attachments/assets/ed310440-c219-4296-8f62-0a33f1a10113" />
 
 Example:
 
