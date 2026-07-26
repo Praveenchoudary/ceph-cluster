@@ -1,0 +1,97 @@
+name: Terraform Prod
+
+on:
+  pull_request:
+    branches: [main]
+    paths: ["terraform/**"]
+  push:
+    branches: [main]
+    paths: ["terraform/**"]
+
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: terraform
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::123456789012:role/terraform-prod-ci
+          aws-region: ap-south-1
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.7.5
+
+      - run: terraform init
+
+      - run: terraform validate
+
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -var="environment=prod" -out=tfplan -no-color
+        continue-on-error: true
+
+      - name: Post Plan to PR
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const output = `#### Terraform Plan - PROD
+            \`\`\`
+            ${{ steps.plan.outputs.stdout }}
+            \`\`\``;
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            });
+
+      - name: Upload plan artifact
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: actions/upload-artifact@v4
+        with:
+          name: tfplan-prod
+          path: terraform/tfplan
+
+  apply:
+    needs: plan
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    environment: prod-approval   # requires manual approval - configure in repo Settings -> Environments
+    defaults:
+      run:
+        working-directory: terraform
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::123456789012:role/terraform-prod-ci
+          aws-region: ap-south-1
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.7.5
+
+      - run: terraform init
+
+      - name: Download plan artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: tfplan-prod
+          path: terraform
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve tfplan

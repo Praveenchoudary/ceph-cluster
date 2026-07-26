@@ -1,0 +1,37 @@
+name: Drift Detection
+
+on:
+  schedule:
+    - cron: '0 2 * * *'   # every day at 2 AM UTC
+  workflow_dispatch:
+
+jobs:
+  drift:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: terraform
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::123456789012:role/terraform-prod-ci
+          aws-region: ap-south-1
+
+      - uses: hashicorp/setup-terraform@v3
+
+      - run: terraform init
+
+      - name: Check for drift
+        id: drift
+        run: terraform plan -detailed-exitcode -no-color
+        continue-on-error: true
+
+      - name: Notify if drift detected
+        if: steps.drift.outputs.exitcode == '2'
+        run: |
+          curl -X POST -H 'Content-type: application/json' \
+            --data '{"text":"Drift detected in prod! Check the plan output in GitHub Actions."}' \
+            ${{ secrets.SLACK_WEBHOOK_URL }}
