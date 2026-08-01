@@ -1,6 +1,6 @@
 # Ceph CSI (RBD) — Kubernetes Deployment
 
-Dynamically provision Ceph RBD block storage volumes on Kubernetes using the Ceph CSI driver, deployed via raw manifests (no Helm).
+Dynamically provision Ceph RBD block storage volumes on Kubernetes using the Ceph CSI driver, deployed via raw manifests .
 
 Tested against:
 
