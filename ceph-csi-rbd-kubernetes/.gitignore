@@ -1,0 +1,4 @@
+# Never commit the real Ceph secret
+manifests/05-secret.yaml
+*-secret.yaml
+*.key

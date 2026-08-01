@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ceph-csi-config
+  namespace: ceph-csi
+data:
+  config.json: |-
+    [
+      {
+        "clusterID": "<CEPH_FSID>",
+        "monitors": [
+          "<MON1_IP>:3300",
+          "<MON2_IP>:3300",
+          "<MON3_IP>:3300"
+        ]
+      }
+    ]
