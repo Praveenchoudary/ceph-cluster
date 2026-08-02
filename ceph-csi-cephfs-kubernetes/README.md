@@ -76,6 +76,7 @@ kubectl apply -f 06-ceph-config.yaml
 # apply your real secret here (see options above), NOT the placeholder file
 kubectl apply -f 03-csi-provisioner-rbac.yaml
 kubectl apply -f 04-csi-nodeplugin-rbac.yaml
+kubectl apply -f 04b-csidriver.yaml
 kubectl apply -f 05-csi-cephfsplugin-provisioner.yaml
 kubectl apply -f 07-csi-cephfsplugin.yaml
 kubectl apply -f 08-storageclass.yaml
@@ -132,6 +133,31 @@ ceph fs subvolume ls cephfs csi
 - `cannot change roleRef` on `kubectl apply` for a ClusterRoleBinding →
   roleRef is immutable; `kubectl delete clusterrolebinding <name>` then
   reapply.
+- `FailedAttachVolume ... timed out waiting for external-attacher` →
+  the `CSIDriver` object for `cephfs.csi.ceph.com` has
+  `attachRequired: true` (the Kubernetes API default when no CSIDriver
+  is explicitly applied). CephFS is mount-based, not attach-based, and
+  this deployment does not run a `csi-attacher` sidecar, so the attach
+  step will hang forever. Fix: apply `04b-csidriver.yaml`, which sets
+  `attachRequired: false`. `CSIDriver.spec` is immutable, so if one
+  already exists with the wrong value:
+  ```bash
+  kubectl delete csidriver cephfs.csi.ceph.com
+  kubectl apply -f 04b-csidriver.yaml
+  kubectl get volumeattachment | grep cephfs   # delete any stale ones
+  ```
+
+- `unable to get monitor info from DNS SRV with service name: ceph-mon`
+  + `mount error 22 = Invalid argument` on `FailedMount` → this is a
+  **misleading, generic fallback error** in ceph-csi's kernel mount
+  path. It fires whenever `mount.ceph` argument parsing fails for any
+  reason — most commonly an invalid/unsupported entry in the
+  StorageClass's `mountOptions` (e.g. `debug`, `discard`,
+  `ms_mode=secure`), not an actual DNS problem. Fix: remove
+  `mountOptions` from the StorageClass entirely (already done in
+  `08-storageclass.yaml`). Since `mountOptions` is immutable on an
+  existing StorageClass, delete and recreate it, and delete/recreate
+  any PVC that was already provisioned under the broken version.
 
 ## Network requirement
 

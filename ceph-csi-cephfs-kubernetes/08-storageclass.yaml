@@ -17,5 +17,3 @@ parameters:
 
 reclaimPolicy: Delete
 allowVolumeExpansion: true
-mountOptions:
-  - debug
