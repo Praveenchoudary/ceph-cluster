@@ -1,0 +1,5 @@
+# Never commit a secret file that has the real Ceph key filled in.
+# Duplicate 02-csi-cephfs-secret.yaml locally as below and keep the
+# local copy out of git.
+02-csi-cephfs-secret.local.yaml
+*.local.yaml

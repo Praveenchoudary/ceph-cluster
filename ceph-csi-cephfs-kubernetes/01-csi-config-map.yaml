@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ceph-csi-config
+  namespace: ceph-csi
+data:
+  config.json: |-
+    [
+      {
+        "clusterID": "130c0b6a-8c50-11f1-9d8b-0200d830b26e",
+        "monitors": [
+          "10.9.2.19:6789",
+          "10.9.2.18:6789",
+          "10.9.2.17:6789"
+        ]
+      }
+    ]
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ceph-csi-encryption-kms-config
+  namespace: ceph-csi
+data:
+  config.json: |-
+    {}
