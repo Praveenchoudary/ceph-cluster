@@ -70,8 +70,6 @@ On all 3 nodes:
 sudo apt update && sudo apt upgrade -y
 sudo apt install -y curl vim net-tools chrony
 ```
-<img width="1098" height="282" alt="Screenshot from 2026-07-31 00-09-03" src="https://github.com/user-attachments/assets/02e243bc-7938-4659-8034-931b73d890e0" />
-
 ---
 
 ## 2.5 Time Synchronization (NTP)
@@ -82,6 +80,7 @@ Ceph is sensitive to clock drift between nodes. Ensure `chrony` is running:
 sudo systemctl enable --now chrony
 timedatectl
 ```
+<img width="1098" height="282" alt="Screenshot from 2026-07-31 00-09-03" src="https://github.com/user-attachments/assets/02e243bc-7938-4659-8034-931b73d890e0" />
 
 ---
 
