@@ -21,6 +21,8 @@ Each node should have:
 - At least **one extra raw/unused disk** (not the OS disk) to be used as an OSD
 - Network connectivity between all 3 nodes
 
+<img width="1646" height="181" alt="Screenshot from 2026-07-30 22-49-04" src="https://github.com/user-attachments/assets/e24613ad-8a70-48be-a87c-289557db26f2" />
+
 ---
 
 ## 2.2 Set Hostnames
@@ -46,6 +48,8 @@ sudo tee -a /etc/hosts <<EOF
 192.168.1.13 ceph3
 EOF
 ```
+<img width="426" height="216" alt="Screenshot from 2026-07-31 00-04-35" src="https://github.com/user-attachments/assets/5623d39c-90e7-49af-9829-6983b91781a9" />
+
 
 Verify:
 
@@ -54,6 +58,7 @@ ping -c 2 ceph1
 ping -c 2 ceph2
 ping -c 2 ceph3
 ```
+<img width="836" height="558" alt="Screenshot from 2026-07-31 00-05-55" src="https://github.com/user-attachments/assets/3ea6a2e3-d3fa-4429-a165-13a587065fe8" />
 
 ---
 
@@ -65,6 +70,7 @@ On all 3 nodes:
 sudo apt update && sudo apt upgrade -y
 sudo apt install -y curl vim net-tools chrony
 ```
+<img width="1098" height="282" alt="Screenshot from 2026-07-31 00-09-03" src="https://github.com/user-attachments/assets/02e243bc-7938-4659-8034-931b73d890e0" />
 
 ---
 
