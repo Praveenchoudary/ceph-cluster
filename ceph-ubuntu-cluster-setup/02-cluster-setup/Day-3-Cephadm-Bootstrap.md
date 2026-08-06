@@ -9,9 +9,7 @@ This guide bootstraps the Ceph cluster on the **first node (ceph1)** using `ceph
 Run on **ceph1** only:
 
 ```bash
-curl --silent --remote-name --location https://github.com/ceph/ceph/raw/squid/src/cephadm/cephadm
-chmod +x cephadm
-sudo mv cephadm /usr/local/bin/
+apt install -y cephadm
 ```
 
 Add the Ceph Squid repository and install the `cephadm` package properly:
