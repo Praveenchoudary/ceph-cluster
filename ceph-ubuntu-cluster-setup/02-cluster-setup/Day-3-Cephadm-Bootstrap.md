@@ -12,13 +12,6 @@ Run on **ceph1** only:
 apt install -y cephadm
 ```
 
-Add the Ceph Squid repository and install the `cephadm` package properly:
-
-```bash
-sudo ./cephadm add-repo --release squid
-sudo ./cephadm install
-```
-
 Verify:
 
 ```bash
